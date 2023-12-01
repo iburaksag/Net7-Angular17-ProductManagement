@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
 using ProductManagement.Application.Validations;
 using ProductManagement.Domain.Entities;
+using ProductManagement.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
