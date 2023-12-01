@@ -1,7 +1,3 @@
-# Project Name
-
-ProductManagementAPI - Manage Products and Categories
-
 ## Overview
 
 ProductManagementAPI is a .NET Core 7 Minimal API that allows you to manage two domains: Products and Categories. The API follows the principles of Clean Architecture and implements the Generic Repository Pattern for data access. Data is stored in a MongoDB NoSQL database, providing a flexible and scalable solution for your application.
