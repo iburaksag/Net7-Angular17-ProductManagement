@@ -20,6 +20,8 @@ builder.Services.AddScoped<IValidator<Category>, CategoryValidator>();
 builder.Services.AddTransient(typeof(IBaseRepository<>), typeof(MongoDBBaseRepository<>));
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 
@@ -31,5 +33,8 @@ if (app.Environment.IsDevelopment())
 
 //API Endpoints
 app.AddCategoriesEndpoints();
+app.AddProductsEndpoints();
+
+app.UseHttpsRedirection();
 
 app.Run();

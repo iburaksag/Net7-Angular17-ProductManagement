@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.Repositories;
+using ProductManagement.Application.Services;
 using ProductManagement.Domain.Entities;
 using ProductManagement.Infrastructure.Services;
 
@@ -12,14 +13,14 @@ namespace ProductManagement.WebApi.Modules
         public static void AddCategoriesEndpoints(this IEndpointRouteBuilder app)
         {
             //GET ALL
-            app.MapGet("/api/v1/categories", async (CategoryService categoryService, HttpContext context) =>
+            app.MapGet("/api/v1/categories", async (ICategoryService categoryService, HttpContext context) =>
             {
                 var categories = await categoryService.GetAllAsync();
                 await JsonSerializer.SerializeAsync(context.Response.Body, categories, options: null);
             });
 
             //GET BY ID
-            app.MapGet("/api/v1/categories/{id}", async (CategoryService categoryService, string id, HttpContext context) =>
+            app.MapGet("/api/v1/categories/{id}", async (ICategoryService categoryService, string id, HttpContext context) =>
             {
                 var category = await categoryService.GetByIdAsync(id);
                 if (category is not null)
@@ -29,7 +30,7 @@ namespace ProductManagement.WebApi.Modules
             });
 
             //create
-            app.MapPost("/api/v1/categories", async (CategoryService categoryService, [FromBody] Category category) =>
+            app.MapPost("/api/v1/categories", async (ICategoryService categoryService, [FromBody] Category category) =>
             {
                 await categoryService.CreateAsync(category);
                 Results.Created($"/api/v1/categories/{category.Id}", category);
@@ -37,7 +38,7 @@ namespace ProductManagement.WebApi.Modules
 
 
             //update
-            app.MapPut("/api/v1/categories/{id}", async (CategoryService categoryService, string id, [FromBody] Category updatedCategory) =>
+            app.MapPut("/api/v1/categories/{id}", async (ICategoryService categoryService, string id, [FromBody] Category updatedCategory) =>
             {
                 await categoryService.UpdateAsync(id, updatedCategory);
                 return Results.NoContent();
@@ -45,7 +46,7 @@ namespace ProductManagement.WebApi.Modules
 
 
             //delete
-            app.MapDelete("/api/v1/categories/{id}", async (CategoryService categoryService, string id) =>
+            app.MapDelete("/api/v1/categories/{id}", async (ICategoryService categoryService, string id) =>
             {
                 await categoryService.DeleteAsync(id);
                 Results.NoContent();

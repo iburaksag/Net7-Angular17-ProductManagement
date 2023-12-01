@@ -14,15 +14,20 @@ namespace ProductManagement.Infrastructure.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<IEnumerable<Category>> GetAllAsync() => await _categoryRepository.GetAllAsync();
+        public async Task<IEnumerable<Category>> GetAllAsync() =>
+            await _categoryRepository.GetAllAsync();
 
-        public async Task<Category> GetByIdAsync(string id) => await _categoryRepository.GetByIdAsync(id);
+        public async Task<Category> GetByIdAsync(string id) =>
+            await _categoryRepository.GetByIdAsync(id);
 
-        public async Task CreateAsync(Category category) => await _categoryRepository.CreateAsync(category);
+        public async Task CreateAsync(Category category) =>
+            await _categoryRepository.CreateAsync(category);
 
-        public async Task UpdateAsync(string id, Category category) => await _categoryRepository.UpdateAsync(id, category);
+        public async Task UpdateAsync(string id, Category category) =>
+            await _categoryRepository.UpdateAsync(id, category);
 
-        public async Task DeleteAsync(string id) => await _categoryRepository.DeleteAsync(id);
+        public async Task DeleteAsync(string id) =>
+            await _categoryRepository.DeleteAsync(id);
     }
 }
 
