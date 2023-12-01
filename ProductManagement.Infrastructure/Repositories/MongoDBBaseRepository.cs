@@ -18,30 +18,20 @@ namespace ProductManagement.Infrastructure.Repositories
             _collection = mongoDatabase.GetCollection<T>(collectionName);
         }
 
-        public Task CreateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<T>> GetAllAsync() =>
+            await _collection.Find(_ => true).ToListAsync();
 
-        public Task DeleteAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<T> GetByIdAsync(string id) =>
+            await _collection.Find(a => a.Id == id).FirstOrDefaultAsync();
 
-        public Task<IEnumerable<T>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task CreateAsync(T entity) =>
+            await _collection.InsertOneAsync(entity);
 
-        public Task<T> GetByIdAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task UpdateAsync(string id, T entity) =>
+            await _collection.ReplaceOneAsync(a => a.Id == id, entity);
 
-        public Task UpdateAsync(string id, T entity)
-        {
-            throw new NotImplementedException();
-        }
-    }
+        public async Task DeleteAsync(string id) =>
+            await _collection.DeleteOneAsync(a => a.Id == id);
+    }   
 }
 
