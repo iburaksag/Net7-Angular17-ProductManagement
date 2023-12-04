@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.Repositories;
 using ProductManagement.Application.Services;
 using ProductManagement.Domain.Entities;
-using ProductManagement.Infrastructure.Services;
 
 namespace ProductManagement.WebApi.Modules
 {
@@ -14,7 +15,7 @@ namespace ProductManagement.WebApi.Modules
         {
             //GET ALL
             app.MapGet("/api/v1/categories", async (ICategoryService categoryService, HttpContext context) =>
-            {
+            {                
                 var categories = await categoryService.GetAllAsync();
                 await JsonSerializer.SerializeAsync(context.Response.Body, categories, options: null);
             });
@@ -30,16 +31,26 @@ namespace ProductManagement.WebApi.Modules
             });
 
             //create
-            app.MapPost("/api/v1/categories", async (ICategoryService categoryService, [FromBody] Category category) =>
+            app.MapPost("/api/v1/categories", async (ICategoryService categoryService, IValidator<Category> _validator, [FromBody] Category category) =>
             {
+                var validationResult = await _validator.ValidateAsync(category);
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
                 await categoryService.CreateAsync(category);
-                Results.Created($"/api/v1/categories/{category.Id}", category);
+                return Results.Created($"/api/v1/categories/{category.Id}", category);
             });
 
 
             //update
-            app.MapPut("/api/v1/categories/{id}", async (ICategoryService categoryService, string id, [FromBody] Category updatedCategory) =>
+            app.MapPut("/api/v1/categories/{id}", async (ICategoryService categoryService, string id, IValidator<Category> _validator, [FromBody] Category updatedCategory) =>
             {
+                var validationResult = await _validator.ValidateAsync(updatedCategory);
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
                 await categoryService.UpdateAsync(id, updatedCategory);
                 return Results.NoContent();
             });

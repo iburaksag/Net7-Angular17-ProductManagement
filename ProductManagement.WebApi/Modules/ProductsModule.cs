@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.Repositories;
 using ProductManagement.Application.Services;
 using ProductManagement.Domain.Entities;
 
@@ -36,16 +38,26 @@ namespace ProductManagement.WebApi.Modules
             });
 
             //create
-            app.MapPost("/api/v1/products", async (IProductService _productService, [FromBody] Product product) =>
+            app.MapPost("/api/v1/products", async (IProductService _productService, IValidator<Product> _validator, [FromBody] Product product) =>
             {
+                var validationResult = await _validator.ValidateAsync(product);
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
                 await _productService.CreateAsync(product);
-                Results.Created($"/api/v1/products/{product.Id}", product);
+                return Results.Created($"/api/v1/products/{product.Id}", product);
             });
 
 
             //update
-            app.MapPut("/api/v1/products/{id}", async (IProductService _productService, string id, [FromBody] Product updatedProduct) =>
+            app.MapPut("/api/v1/products/{id}", async (IProductService _productService, string id, IValidator<Product> _validator, [FromBody] Product updatedProduct) =>
             {
+                var validationResult = await _validator.ValidateAsync(updatedProduct);
+                if (!validationResult.IsValid)
+                {
+                    return Results.ValidationProblem(validationResult.ToDictionary());
+                }
                 await _productService.UpdateAsync(id, updatedProduct);
                 return Results.NoContent();
             });
