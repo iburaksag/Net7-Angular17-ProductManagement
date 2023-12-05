@@ -5,7 +5,7 @@ using ProductManagement.Application.Repositories;
 using ProductManagement.Domain.Common;
 using ProductManagement.Infrastructure.Data;
 
-namespace ProductManagement.Infrastructure.Repositories
+namespace ProductManagement.Infrastructure.Repositories.Common
 {
 	public class MongoDBBaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {

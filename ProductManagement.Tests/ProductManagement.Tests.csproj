@@ -15,6 +15,21 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProductManagement.Application\ProductManagement.Application.csproj" />
+    <ProjectReference Include="..\ProductManagement.Domain\ProductManagement.Domain.csproj" />
+    <ProjectReference Include="..\ProductManagement.Infrastructure\ProductManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProductManagement.WebApi\ProductManagement.WebApi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Application.Tests\" />
+    <None Remove="Infrastructure.Tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application.Tests\" />
+    <Folder Include="Infrastructure.Tests\" />
+  </ItemGroup>
 </Project>

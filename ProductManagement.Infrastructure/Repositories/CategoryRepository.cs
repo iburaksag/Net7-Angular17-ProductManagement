@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using ProductManagement.Application.Repositories;
 using ProductManagement.Domain.Entities;
 using ProductManagement.Infrastructure.Data;
+using ProductManagement.Infrastructure.Repositories.Common;
 
 namespace ProductManagement.Infrastructure.Repositories
 {

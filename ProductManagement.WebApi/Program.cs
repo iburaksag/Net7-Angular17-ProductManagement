@@ -5,6 +5,7 @@ using ProductManagement.Application.Services;
 using ProductManagement.Application.Validations;
 using ProductManagement.Infrastructure.Data;
 using ProductManagement.Infrastructure.Repositories;
+using ProductManagement.Infrastructure.Repositories.Common;
 using ProductManagement.Infrastructure.Services;
 using ProductManagement.WebApi.Modules;
 
