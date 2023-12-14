@@ -1,6 +1,6 @@
 ## Overview
 
-ProductManagementAPI is a .NET Core 7 Minimal API that allows you to manage two domains: Products and Categories. The API follows the principles of Clean Architecture and implements the Generic Repository Pattern for data access. Data is stored in a MongoDB NoSQL database, providing a flexible and scalable solution for your application.
+ProductManagement is a full-stack application that combines a .NET Core 7 Minimal API for backend services and an Angular 17 frontend for an interactive user interface. The API allows you to manage two domains: Products and Categories. The backend follows the principles of Clean Architecture and implements the Generic Repository Pattern for data access. Data is stored in a MongoDB NoSQL database, providing a flexible and scalable solution for your application.
 
 ## Features
 
@@ -8,7 +8,8 @@ ProductManagementAPI is a .NET Core 7 Minimal API that allows you to manage two 
 - **Clean Architecture**: Project structured according to Clean Architecture principles for maintainability and scalability.
 - **Generic Repository Pattern**: Utilizes the Generic Repository Pattern for consistent data access across different domains.
 - **Minimal API**: Developed with Minimal API, a lightweight approach for building APIs with minimal ceremony.
-- **MongoDB Integration**: Stores data in a MongoDB NoSQL database for efficient and scalable data storage. MongoDB.Driver is used to connect project to MongoDB Cluster.
+- **MongoDB Integration**: Stores data in a MongoDB NoSQL database for efficient and scalable data storage. MongoDB.Driver is used to connect the project to the MongoDB Cluster.
+- **Angular 17 UI**: The client-side of the application is developed with Angular 17, providing a modern and responsive user interface.
 
 ## Technologies Used
 
@@ -17,14 +18,27 @@ ProductManagementAPI is a .NET Core 7 Minimal API that allows you to manage two 
 - Clean Architecture
 - Generic Repository Pattern
 - Minimal API
+- Angular 17
 
 ## Getting Started
 
-Follow these steps to get started with ProductManagementAPI:
+Follow these steps to get started with ProductManagement:
 
 1. Clone the repository.
 2. Configure your MongoDB connection in the app settings.
 3. Build and run the application.
+
+For the Angular UI:
+
+1. Navigate to the 'ProductManagement.UI' directory.
+2. Install dependencies using `npm install`.
+3. Run the Angular application with `ng serve -o`.
+
+The application will be accessible at `http://localhost:4200`.
+
+## Making API Calls from Angular
+
+The Angular UI communicates with the .NET Core API to perform CRUD operations. API endpoints are prefixed with `/api/v1/`. Update the Angular service files to point to the appropriate API endpoints for seamless integration.
 
 ## API Endpoints
 
