@@ -39,7 +39,8 @@ namespace ProductManagement.WebApi.Modules
                     return Results.ValidationProblem(validationResult.ToDictionary());
                 }
                 await categoryService.CreateAsync(category);
-                return Results.Created($"/api/v1/categories/{category.Id}", category);
+                //return Results.Created($"/api/v1/categories/{category.Id}", category);
+                return Results.Ok(await categoryService.GetAllAsync());
             });
 
 
@@ -52,7 +53,7 @@ namespace ProductManagement.WebApi.Modules
                     return Results.ValidationProblem(validationResult.ToDictionary());
                 }
                 await categoryService.UpdateAsync(id, updatedCategory);
-                return Results.NoContent();
+                return Results.Ok(await categoryService.GetAllAsync());
             });
 
 
@@ -60,7 +61,7 @@ namespace ProductManagement.WebApi.Modules
             app.MapDelete("/api/v1/categories/{id}", async (ICategoryService categoryService, string id) =>
             {
                 await categoryService.DeleteAsync(id);
-                Results.NoContent();
+                return Results.Ok(await categoryService.GetAllAsync());
             });
 
         }
