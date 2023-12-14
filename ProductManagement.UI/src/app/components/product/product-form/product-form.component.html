@@ -1,0 +1,65 @@
+<form #form="ngForm" (submit)="onSubmit(form)"
+        [class.submitted] = "service.productFormSubmitted" novalidate autocomplete="off">
+    <input type="hidden" name="Id" [value]="service.productFormData.Id">
+    <h3 *ngIf="!service.productFormData.Id" class="text-center">Create New Product</h3>
+    <h3 *ngIf="service.productFormData.Id" class="text-center">Update Product</h3>
+    <div class="mb-3">
+        <label>Name</label>
+        <input class="form-control form-control-lg" 
+            placeholder="Name"
+            #Name="ngModel" name="Name"
+            [(ngModel)]="service.productFormData.Name"
+            required>
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <input class="form-control form-control-lg" 
+            placeholder="Description"
+            #Name="ngModel" name="Description"
+            [(ngModel)]="service.productFormData.Description"
+            required>
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input type="number" class="form-control form-control-lg" 
+            placeholder="Price"
+            #Name="ngModel" name="Price"
+            [(ngModel)]="service.productFormData.Price"
+            pattern="^[0-9]+$"
+            required>
+    </div>
+
+    <div class="mb-3">
+        <label>Color</label>
+        <input class="form-control form-control-lg" 
+            placeholder="Color"
+            #Name="ngModel" name="Color"
+            [(ngModel)]="service.productFormData.Color"
+            required>
+    </div>
+
+    <div class="mb-3">
+    <label>Category</label>
+    <select class="form-control form-control-lg"
+            #Category="ngModel" name="Category"
+            [(ngModel)]="service.productFormData.CategoryId"
+            required>
+        <option value="" disabled selected>Choose Category</option>
+        <option *ngFor="let category of service.categoryList" [value]="category.Id">{{ category.Name }}</option>
+    </select>
+    </div>
+
+    <div class="d-grid">
+        <button *ngIf="!service.productFormData.Id" name="submit" class="btn btn-lg btn-success w-75 mx-auto" type="submit">Submit</button>
+        <div class="row justify-content-end">
+            <div class="col-6">
+                <button *ngIf="service.productFormData.Id" name="update" class="btn w-100 btn-md btn-primary" type="submit">Update</button>
+            </div>
+            <div class="col-6 text-end">
+                <button *ngIf="service.productFormData.Id" class="btn btn-md btn-warning" type="submit" (click)="resetForm()">Reset Form</button>
+            </div>
+        </div>
+    </div>
+</form>
